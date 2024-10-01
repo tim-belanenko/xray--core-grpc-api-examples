@@ -1,0 +1,50 @@
+{
+    "log": {
+        "loglevel": "debug"
+    },
+    "api": {
+        "tag": "api",
+        "services": [
+            "ReflectionService",
+            "HandlerService",
+            "LoggerService",
+            "StatsService"
+        ]
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 3000,
+            "protocol": "dokodemo-door",
+            "settings": {
+                "address": "0.0.0.0"
+            },
+            "tag": "api"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ],
+    "policy": {
+        "system": {
+            "statsInboundDownlink": true,
+            "statsInboundUplink": true
+        }
+    },
+    "routing": {
+        "rules": [
+            {
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api",
+                "type": "field"
+            }
+        ],
+        "domainStrategy": "AsIs"
+    },
+    "stats": {}
+}
